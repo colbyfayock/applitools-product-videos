@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class VisualLocators {
 
@@ -29,30 +32,31 @@ public class VisualLocators {
 		eyes.setConfiguration(config);
 		
 		try {
+			driver.get("https://demo.applitools.com/login-interactive.html");
+			
 			eyes.open(driver, "Applitools.com - Selenium for Java - Visual Locators", "Smoke Test - Selenium for Java - Visual Locators", new RectangleSize(800, 600));
 
-			Map<String, List<Region>> locators = eyes.locate(VisualLocator.name("Twitter Logo"));
+			Map<String, List<Region>> locators = eyes.locate(VisualLocator.name("linkedin-logo"));
 
-			List<Region> locatorRegions = locators.get("Twitter Logo");
+			List<Region> locatorRegions = locators.get("linkedin-logo");
 			
-			Region regionTwitterLogo = locatorRegions.get(0);
+			Region regionLinkedInLogo = locatorRegions.get(0);
 
-			int clickLocationX = regionTwitterLogo.getLeft() + regionTwitterLogo.getWidth() / 2;
-			int clickLocationY = regionTwitterLogo.getTop() + regionTwitterLogo.getHeight() / 2;
-
-			driver.get("https://demo.applitools.com/login-interactive.html");
+			int clickLocationX = regionLinkedInLogo.getLeft() + regionLinkedInLogo.getWidth() / 2;
+			int clickLocationY = regionLinkedInLogo.getTop() + regionLinkedInLogo.getHeight() / 2;
 
 			eyes.checkWindow("Login Window");
 
 			new Actions(driver)
 				.moveByOffset(clickLocationX, clickLocationY)
-				.build()
+				.click()
 				.perform();
 
-			eyes.checkWindow("Twitter");
+			eyes.checkWindow("LinkedIn");
 
 			eyes.closeAsync();
 		} finally {
+			eyes.abortAsync();
 			driver.quit();
 		}
 	}
