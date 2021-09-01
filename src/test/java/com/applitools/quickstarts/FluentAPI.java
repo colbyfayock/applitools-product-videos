@@ -29,15 +29,12 @@ public class FluentAPI {
 
 			driver.get("https://demo.applitools.com");
 
-			// checkWindow by default will capture the entire window 
 			eyes.checkWindow("Login Window");
 
 			driver.findElement(By.id("log-in")).click();
 
-			// The Fluent API allows you to configure your Target manually
 			eyes.check(Target.window().fully().withName("App Window"));
 			eyes.check("Transactions Table", Target.region(By.className("table")));
-
 
 			eyes.closeAsync();
 		} finally {
