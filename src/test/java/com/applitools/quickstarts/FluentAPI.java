@@ -44,6 +44,7 @@ public class FluentAPI {
 
 		eyes.check(Target.window().fully().withName("App Window"));
 		eyes.check("Transactions Table", Target.region(By.className("table")));
+		eyes.check("Transactions Table without Header", Target.region(By.className("table")).ignore(By.tagName("thead")));
 
 		eyes.closeAsync();
 	}
